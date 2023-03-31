@@ -34,3 +34,11 @@ class LoginView(generics.GenericAPIView):
 
         return Response(response, status=status.HTTP_200_OK)
 
+class LogoutView(generics.DestroyAPIView):
+
+    permission_classes = [IsAuthenticated]
+
+    def get_object(self):
+
+        return Token.objects.get(user=self.request.user)
+
