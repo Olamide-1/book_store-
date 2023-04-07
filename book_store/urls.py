@@ -22,5 +22,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('account/', include('account.urls')),
     path('book/', include('book.urls')),
-    path('health-check/', HealthCheckView.as_view(), name="health")
+    path('health/', HealthCheckView.as_view(), name="health")
 ]
