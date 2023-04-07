@@ -6,4 +6,4 @@ from rest_framework.views import APIView
 class HealthCheckView(APIView):
 
     def get(self, request):
-        return Response({"status", "heathy"}, status=status.HTTP_200_OK)
+        return Response({"status": "heathy"}, status=status.HTTP_200_OK)
