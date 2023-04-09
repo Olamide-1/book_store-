@@ -38,14 +38,16 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'whitenoise',
+    'oauth2_provider',
+    'oauth',
     'account',
     'book'
 ]
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -140,8 +142,12 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": [
         "rest_framework.authentication.TokenAuthentication"
-    ]
+    ],
+    'DEFAULT_PAGINATION_CLASS': 'book_store.paginations.CustomPagination'
 }
 MEDIA_ROOT = BASE_DIR/"media"
 MEDIA_URL = "media/"
 AUTH_USER_MODEL = "account.Account"
+GOOGLE_CLIENT_SECRET = os.getenv("GOOGLE_CLIENT_SECRET"),
+GOOGLE_CLIENT_ID = os.getenv("GOOGLE_CLIENT_ID")
+GOOGLE_REDIRECT_URL = os.getenv("GOOGLE_REDIRECT_URL")
