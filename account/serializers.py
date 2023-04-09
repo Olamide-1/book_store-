@@ -25,7 +25,10 @@ class CreateAccountSerializer(serializers.ModelSerializer):
         self.fields["password"].write_only = True
 
     def validate(self, attrs):
-        validate_password(attrs["password"])
+        try:
+            validate_password(attrs["password"])
+        except Exception as e:
+            raise serializers.ValidationError({"password": e})
 
         return attrs
 
