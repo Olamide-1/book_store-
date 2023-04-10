@@ -63,16 +63,8 @@ class WalletAuthSerializer(serializers.Serializer):
 
         if token_response.status_code != 200:
             # Return an error response if token exchange fails
-            data = {
-                'code': attrs["code"],
-                'client_id': settings.WALLET_CLIENT_ID,
-                'client_secret': settings.WALLET_CLIENT_SECRET,
-                'code_verifier': settings.WALLET_CODE_VERIFIER,
-                'redirect_uri': settings.WALLET_REDIRECT_URL,
-                'grant_type': 'authorization_code'
-            }
             raise serializers.ValidationError(
-                f'Failed to exchange authorization code for token {token_response.content}  {data}')
+                f'Failed to exchange authorization code for token')
 
         attrs["token_res"] = token_response
 
