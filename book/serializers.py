@@ -22,7 +22,7 @@ class BookSerialier(serializers.ModelSerializer):
 
 class MyBooksSerializer(serializers.ModelSerializer):
     user = serializers.StringRelatedField()
-    book = serializers.StringRelatedField()
+    book = BookSerialier(read_only=True)
 
     class Meta:
         model = PurchasedBooks
