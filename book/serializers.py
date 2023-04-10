@@ -20,9 +20,15 @@ class BookSerialier(serializers.ModelSerializer):
         return super().update(instance, validated_data)
 
 
+class PurchasedBookSerilizer(serializers.ModelSerializer):
+    class Meta:
+        model = Book
+        fields = '__all__'
+
+
 class MyBooksSerializer(serializers.ModelSerializer):
     user = serializers.StringRelatedField()
-    book = BookSerialier(read_only=True)
+    book = PurchasedBookSerilizer(read_only=True)
 
     class Meta:
         model = PurchasedBooks
