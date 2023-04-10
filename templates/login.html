@@ -1,0 +1,106 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#000000" />
+  <meta name="description" content="BOOKHUB: Easy, reliable and efficient" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&amp;family=Work+Sans:wght@300;400;500;600;700;800;900&amp;display=swap"
+    rel="stylesheet" />
+  <title>BookHub</title>
+  <script defer="" src="{% static 'js/bundle.js' %}"></script>
+  <link rel="stylesheet" href="{% static 'css/main.28fcf18e.css' %}">
+</head>
+
+<body>
+  <noscript>You need to enable JavaScript to run this app.</noscript>
+  <div id="root">
+    <div>
+      <header class="fixed top-0 left-0 bg-white z-50 shadow-md w-full sm:px-4">
+        <div class="container mx-auto py-4 flex flex-row items-center justify-between">
+          <a class="font-serif uppercase font-extrabold text-3xl" href="/">Bookhub</a>
+          <form class="w-1/2 hidden md:block">
+            <div class="flex-row hidden md:flex relative w-full">
+              <input type="search" name="search" id="search" placeholder="Search by title"
+                class="border border-gray-400 flex-1 p-2 py-2 px-4 pr-6 rounded-l-lg" /><button
+                class="bg-primary p-2 relative -left-2 rounded-r-lg">
+                <img src="{% static 'media/search.04a90d8779e84aa2122a12afb66dd3c9.svg' %}" alt="Search icon"
+                  class="h-6 w-6 fill-white stroke-white" />
+              </button>
+            </div>
+          </form>
+          <nav class="hidden items-center space-x-4 sm:flex">
+            <a class="text-black text-base hover:text-primary hover:underline" href="/login">Login</a><span
+              class="h-full w-px bg-black self-start">&nbsp;</span><a
+              class="text-black text-base hover:text-primary hover:underline" href="/register">Register</a>
+          </nav>
+        </div>
+      </header>
+      <main class="pt-[72px]">
+        <section id="login">
+          <div class="container mx-auto flex min-h-[80vh]">
+            <article class="w-1/2 py-20 px-10 flex flex-col items-center justify-center">
+              <h1 class="font-serif text-left w-full text-3xl font-extrabold">
+                Welcome back
+              </h1>
+              <p class="w-full mt-2">
+                Welcome back! Please enter your details
+              </p>
+              <div class="w-full mt-2">
+                <div class="flex flex-col gap-4">
+                  <button class="group text-google text-xl py-3 px-5 rounded-md border border-google flex gap-6 w-max">
+                    <img src="{% static 'media/google.fc40d321a3cc20d067af60c05c496b2c.svg' %}"
+                      class="h-6 w-6 transition-transform" alt="Google logo" /><span class="group-hover:underline">Login
+                      with Google</span>
+                  </button>
+                </div>
+              </div>
+              <form id="login" method="post" class="w-full mt-6 space-y-4 sm:space-y-4">
+                <div class="flex flex-col space-y-2">
+                  <label for="username" class="text-base font-semibold">Username <span
+                      class="text-red-600">*</span></label>
+                  <div>
+                    {{form.username}}
+                    <span class="text-red-600 dark:text-red-400 font-medium text-[15px] hidden"></span>
+                  </div>
+                </div>
+                <div class="flex flex-col space-y-2">
+                  <label for="password" class="text-base font-semibold">Password <span
+                      class="text-red-600">*</span></label>
+                  <div>
+                    {{form.password}}
+                    <span class="text-red-600 dark:text-red-400 font-medium text-[15px] hidden"></span>
+                  </div>
+                </div>
+                <div class="flex justify-center mt-8 sm:mt-10">
+                  <button type="submit"
+                    class="flex flex-row items-center text-base font-semibold px-5 py-4 bg-primary rounded-md w-full justify-center text-white gap-x-2 drop-shadow-lg disabled:opacity-50 disabled:cursor-not-allowed outline-offset-2 outline-primary outline-1 focus:outline active:drop-shadow-none hover:underline hover:bg-primaryLight">
+                    <span class="text-lg sm:text-xl">Login</span>
+                  </button>
+                </div>
+              </form>
+              <p class="mt-4">
+                Dont have an account?
+                <a class="underline text-primary hover:no-underline focus:no-underline font-bold" href="/register">Sign
+                  up</a>
+              </p>
+            </article>
+            <article class="w-1/2 bg-slate-100 flex items-center justify-center">
+              <div class="bg-gradient-to-b from-slate-200 to-primary h-60 w-60 rounded-full">
+                &nbsp;
+              </div>
+            </article>
+          </div>
+        </section>
+      </main>
+      <footer class="text-center py-4 bg-zinc-200 text-lg">
+        ©2022 Copyright BookHub
+      </footer>
+    </div>
+  </div>
+</body>
+
+</html>

@@ -11,7 +11,14 @@ from django.utils.translation import gettext_lazy as _
 
 
 def store_book(model, filename):
-    path = os.path.join("books", filename)
+    _, extension = os.path.splitext(filename)
+    path = os.path.join("books", model.title, f'{model.title}.{extension}')
+    return path
+
+
+def store_cover(model, filename):
+    _, extension = os.path.splitext(filename)
+    path = os.path.join("books", model.title, f'{model.title}.{extension}')
     return path
 
 
@@ -24,7 +31,10 @@ class Book(models.Model):
     id = models.IntegerField(_("ID"), primary_key=True, default=generate_id)
     title = models.CharField(_("Title"), max_length=50,
                              null=False, blank=False, unique=True)
-    description = models.TextField(_("Description"), null=False, blank=False)
+    description = models.TextField(
+        _("Description"), null=False, blank=False)
+    cover_page = models.ImageField(
+        _("Cover Page"), null=False, blank=False, upload_to=store_cover)
     book = models.FileField(_("Book File"), null=False,
                             blank=False, upload_to=store_book)
     book_id = models.CharField(max_length=60, null=False, blank=False)

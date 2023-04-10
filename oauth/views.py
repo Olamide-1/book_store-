@@ -37,6 +37,16 @@ class LoginOauthView(generic.FormView):
         return redirect(self.request.GET["next"])
 
 
+class UserInfoView(generics.RetrieveAPIView):
+
+    serializer_class = serializers.UserInfoSerializer
+    permission_classes = [TokenHasScope]
+    required_scopes = ["read"]
+
+    def get_object(self):
+        return self.request.user
+
+
 class GoogleAuthView(generics.GenericAPIView):
 
     serializer_class = serializers.GoogleAuthSerializer

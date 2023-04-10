@@ -62,7 +62,7 @@ CORS_ALLOW_ALL_ORIGINS = True
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR/"templates"],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -145,9 +145,29 @@ REST_FRAMEWORK = {
     ],
     'DEFAULT_PAGINATION_CLASS': 'book_store.paginations.CustomPagination'
 }
-MEDIA_ROOT = BASE_DIR/"media"
-MEDIA_URL = "media/"
+
+DEFAULT_FILE_STORAGE = "projectrepo.storage.MediaStorage"
+
+AWS_S3_ACCESS_KEY_ID = os.getenv("AWS_S3_ACCESS_KEY_ID")
+AWS_S3_SECRET_ACCESS_KEY = os.getenv("AWS_S3_SECRET_ACCESS_KEY")
+AWS_STORAGE_BUCKET_NAME = os.getenv("AWS_STORAGE_BUCKET_NAME")
+# AWS_DEFAULT_ACL = None
+AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
+AWS_S3_OBJECT_PARAMETERS = {'CacheControl': 'max-age=86400'}
+# AWS_QUERYSTRING_AUTH = False
+MEDIA_LOCATION = "media"
+MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{MEDIA_LOCATION}/'
+
+STATICFILES_DIRS = [BASE_DIR/"static"]
 AUTH_USER_MODEL = "account.Account"
 GOOGLE_CLIENT_SECRET = os.getenv("GOOGLE_CLIENT_SECRET"),
 GOOGLE_CLIENT_ID = os.getenv("GOOGLE_CLIENT_ID")
 GOOGLE_REDIRECT_URL = os.getenv("GOOGLE_REDIRECT_URL")
+
+OAUTH2_PROVIDER = {
+    "SCOPES": {
+        "read": "Grant Access to Read User Info"
+    }
+}
+
+LOGIN_URL = "/oauth/login/"
