@@ -1,11 +1,11 @@
 from django.shortcuts import get_object_or_404
 from django.http import Http404
 from rest_framework import generics
-from rest_framework.permissions import IsAdminUser
+from rest_framework.permissions import IsAdminUser, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework import status
-from .serializers import BookSerialier, ListBookSerializer
-from .models import Book
+from .serializers import BookSerialier, MyBooksSerializer
+from .models import Book, PurchasedBooks
 
 
 class AddBookView(generics.CreateAPIView):
@@ -53,7 +53,16 @@ class RetrieveBookView(generics.RetrieveAPIView):
 
 class ListBooksView(generics.ListAPIView):
 
-    serializer_class = ListBookSerializer
+    serializer_class = BookSerialier
 
     def get_queryset(self):
         return Book.objects.all()
+
+
+class FetchByBooksView(generics.ListAPIView):
+
+    serializer_class = MyBooksSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        return PurchasedBooks.objects.filter(user=self.request.user)

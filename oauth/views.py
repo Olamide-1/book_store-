@@ -4,6 +4,7 @@ from django.views import generic
 from django.shortcuts import redirect
 from django.contrib.auth import login, authenticate, get_user_model
 from django.contrib.auth.hashers import make_password
+from django.conf import settings
 
 from rest_framework import generics
 from rest_framework.response import Response
@@ -47,6 +48,36 @@ class UserInfoView(generics.RetrieveAPIView):
 
     def get_object(self):
         return self.request.user
+
+
+class WalletAuthView(generics.GenericAPIView):
+
+    serializer_class = serializers.WalletAuthSerializer
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        token_response = serializer.validated_data["token_res"]
+
+        token_data = token_response.json()
+        access_token = token_data['access_token']
+        book = serializer.validated_data["book"]
+        amount = book.price
+
+        response = requests.post(
+            "http://wallet-env.eba-gr5bgv3s.eu-north-1.elasticbeanstalk.com/oauth/payment/",
+            headers={"Authorization": f"Bearer {access_token}"},
+            json={
+                "reciever": settings.WALLET_ACCOUNT_ID,
+                "amount": amount,
+            }
+        )
+
+        if response != 200:
+            return Response({"status": "failed", "message": "Unable to Perform Transaction"})
+
+        return Response({"status": "status", "message": "Book Purchased"})
 
 
 class GoogleAuthView(generics.GenericAPIView):

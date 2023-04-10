@@ -9,5 +9,6 @@ urlpatterns = [
     path("token/", TokenView.as_view(), name="oauth-token"),
     path("userinfo/", views.UserInfoView.as_view(), name="oauth-userinfo"),
     path("login/", views.LoginOauthView.as_view(), name="oauth-login"),
+    path("wallet-payment/", views.WalletAuthView.as_view(), name="walletauth"),
     path("google-auth/", views.GoogleAuthView.as_view(), name="google-auth")
 ]

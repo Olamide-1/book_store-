@@ -1,12 +1,12 @@
 from rest_framework import serializers
-from .models import Book
+from .models import Book, PurchasedBooks
 
 
 class BookSerialier(serializers.ModelSerializer):
 
     class Meta:
         model = Book
-        exclude = ["id"]
+        exclude = ["book"]
 
     def __init__(self, instance=None, **kwargs):
         super().__init__(instance, **kwargs)
@@ -20,8 +20,10 @@ class BookSerialier(serializers.ModelSerializer):
         return super().update(instance, validated_data)
 
 
-class ListBookSerializer(BookSerialier):
+class MyBooksSerializer(serializers.ModelSerializer):
+    user = serializers.StringRelatedField()
+    book = BookSerialier(read_only=True)
 
     class Meta:
-        model = Book
-        fields = '__all__'
+        model = PurchasedBooks
+        fields = "__all__"
