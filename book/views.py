@@ -65,4 +65,4 @@ class FetchMyBooksView(generics.ListAPIView):
     permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
-        return PurchasedBooks.objects.filter(user=self.request.user)
+        return PurchasedBooks.objects.all()
