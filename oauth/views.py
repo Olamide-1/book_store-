@@ -16,6 +16,7 @@ from oauth2_provider.contrib.rest_framework.authentication import OAuth2Authenti
 from oauth2_provider.contrib.rest_framework.permissions import TokenHasScope
 
 from .forms import LoginForm
+from book.models import PurchasedBooks
 from . import serializers
 
 
@@ -76,6 +77,11 @@ class WalletAuthView(generics.GenericAPIView):
 
         if response.status_code != 200:
             return Response({"status": "failed", "message": f"Unable to Perform Transaction"}, status=status.HTTP_400_BAD_REQUEST)
+
+        try:
+            PurchasedBooks.objects.create(user=request.user, book=book)
+        except:
+            pass
 
         return Response({"status": "status", "message": "Book Purchased"})
 

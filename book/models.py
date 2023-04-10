@@ -63,5 +63,8 @@ class PurchasedBooks(models.Model):
     user = models.ForeignKey(
         to=get_user_model(), on_delete=models.CASCADE, related_name="mybooks")
 
+    class Meta:
+        unique_together = ("book", "user")
+
     def __str__(self):
         return f'{self.user}\'s {self.book}'
