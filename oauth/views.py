@@ -8,6 +8,7 @@ from django.contrib.auth.hashers import make_password
 from rest_framework import generics
 from rest_framework.response import Response
 from rest_framework import status
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.authtoken.models import Token
 
 from oauth2_provider.contrib.rest_framework.authentication import OAuth2Authentication
@@ -40,7 +41,8 @@ class LoginOauthView(generic.FormView):
 class UserInfoView(generics.RetrieveAPIView):
 
     serializer_class = serializers.UserInfoSerializer
-    permission_classes = [TokenHasScope]
+    permission_classes = [IsAuthenticated, TokenHasScope]
+    authentication_classes = [OAuth2Authentication]
     required_scopes = ["read"]
 
     def get_object(self):
