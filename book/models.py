@@ -28,7 +28,8 @@ class Book(models.Model):
 
         return randint(int("1"*15), int("9"*15))
 
-    id = models.IntegerField(_("ID"), primary_key=True, default=generate_id)
+    id = models.PositiveBigIntegerField(
+        _("ID"), primary_key=True, default=generate_id, editable=False)
     title = models.CharField(_("Title"), max_length=50,
                              null=False, blank=False, unique=True)
     description = models.TextField(
