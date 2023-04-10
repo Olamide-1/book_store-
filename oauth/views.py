@@ -75,7 +75,7 @@ class WalletAuthView(generics.GenericAPIView):
         )
 
         if response != 200:
-            return Response({"status": "failed", "message": "Unable to Perform Transaction"})
+            return Response({"status": "failed", "message": f"Unable to Perform Transaction {response.content}"})
 
         return Response({"status": "status", "message": "Book Purchased"})
 
