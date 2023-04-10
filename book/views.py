@@ -59,7 +59,7 @@ class ListBooksView(generics.ListAPIView):
         return Book.objects.all()
 
 
-class FetchByBooksView(generics.ListAPIView):
+class FetchMyBooksView(generics.ListAPIView):
 
     serializer_class = MyBooksSerializer
     permission_classes = [IsAuthenticated]
