@@ -54,10 +54,10 @@ class WalletAuthSerializer(serializers.Serializer):
         url = "http://wallet-env.eba-gr5bgv3s.eu-north-1.elasticbeanstalk.com/oauth/token/"
         token_response = requests.post(url=url, data={
             'code': attrs["code"],
-            'client_id': settings.WALLET_STORE_CLIENT_ID,
-            'client_secret': settings.WALLET_STORE_CLIENT_SECRET,
-            'code_verifier': settings.WALLET_STORE_CODE_VERIFIER,
-            'redirect_uri': settings.WALLET_STORE_REDIRECT_URL,
+            'client_id': settings.WALLET_CLIENT_ID,
+            'client_secret': settings.WALLET_CLIENT_SECRET,
+            'code_verifier': settings.WALLET_CODE_VERIFIER,
+            'redirect_uri': settings.WALLET_REDIRECT_URL,
             'grant_type': 'authorization_code'
         })
 
