@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'whitenoise',
+    'storages',
     'oauth2_provider',
     'oauth',
     'account',

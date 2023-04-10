@@ -12,13 +12,13 @@ from django.utils.translation import gettext_lazy as _
 
 def store_book(model, filename):
     _, extension = os.path.splitext(filename)
-    path = os.path.join("books", model.title, f'{model.title}.{extension}')
+    path = os.path.join("books", model.title, f'{model.title}{extension}')
     return path
 
 
 def store_cover(model, filename):
     _, extension = os.path.splitext(filename)
-    path = os.path.join("books", model.title, f'{model.title}.{extension}')
+    path = os.path.join("books", model.title, f'{model.title}{extension}')
     return path
 
 
@@ -41,6 +41,9 @@ class Book(models.Model):
     book_id = models.CharField(max_length=60, null=False, blank=False)
     price = models.FloatField(validators=[MaxValueValidator(
         1000000.0), MinValueValidator(1.0)], null=False, blank=False)
+
+    def __str__(self):
+        return f'{self.title}'
 
     def save(self, *args, **kwargs):
         if not self.book_id:
